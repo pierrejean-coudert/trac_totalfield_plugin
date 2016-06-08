@@ -2,7 +2,7 @@
 
 import unittest
 
-from total_field.tests import total_field, utils
+from totalfield.tests import total_field, utils
 
 
 def test_suite():

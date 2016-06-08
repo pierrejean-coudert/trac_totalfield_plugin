@@ -3,7 +3,7 @@
 import unittest
 from trac.test import EnvironmentStub, Mock
 
-from total_field.utils import TotalFieldBase
+from totalfield.utils import TotalFieldBase
 
 
 class TotalFieldBaseTestCase(unittest.TestCase):
@@ -26,10 +26,9 @@ class TotalFieldBaseTestCase(unittest.TestCase):
             return # 0.12+ feature of mock env
         class TestTool(TotalFieldBase):
             pass
-        env = EnvironmentStub()
-        self.env.config.set('ticket-custom', 'my_field', 'text')
-        self.env.config.set('totalfield', 'total_field', 'my_field')
-        env.config.set('components', 'totalfield.*', 'enabled')
+        env = EnvironmentStub(enable=['totalfield.*'])
+        env.config.set('ticket-custom', 'my_field', 'text')
+        env.config.set('totalfield', 'total_field', 'my_field')
         messages = []
         env.log = Mock(error=lambda msg, *args: messages.append(msg))
         TestTool(env)

@@ -6,7 +6,7 @@ from trac.test import EnvironmentStub, Mock, MockPerm
 from trac.ticket.model import Ticket
 from trac.web.href import Href
 
-from total_field.total_field import TotalField
+from totalfield.total_field import TotalField
 
 
 class TotalFieldTestCase(unittest.TestCase):

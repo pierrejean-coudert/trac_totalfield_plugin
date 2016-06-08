@@ -1,8 +1,7 @@
 from trac.wiki.api import parse_args
 from trac.wiki.macros import WikiMacroBase
 
-from total_field.utils import TotalFieldBase, get_closed_states, \
-                                  execute_query
+from totalfield.utils import TotalFieldBase, execute_query
 
 
 
@@ -17,8 +16,6 @@ class TotalField(TotalFieldBase, WikiMacroBase):
         [[TotalField(milestone=Sprint 1)]]
     }}}
     """
-
-    closed_states = get_closed_states()
 
     def expand_macro(self, formatter, name, content):
         req = formatter.req
