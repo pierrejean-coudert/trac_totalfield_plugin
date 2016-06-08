@@ -3,7 +3,7 @@
 import unittest
 from trac.test import EnvironmentStub, Mock
 
-from totalfield.utils import TotalFieldBase
+from totalfield.total_field import TotalFieldBase
 
 
 class TotalFieldBaseTestCase(unittest.TestCase):
@@ -34,7 +34,6 @@ class TotalFieldBaseTestCase(unittest.TestCase):
         TestTool(env)
         self.assertEquals(True, env.is_enabled(TestTool))
         self.assertEquals(messages, [])
-
 
 def suite():
     return unittest.makeSuite(TotalFieldBaseTestCase)
