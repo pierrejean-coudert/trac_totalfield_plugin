@@ -1,7 +1,7 @@
 from trac.wiki.api import parse_args
 from trac.wiki.macros import WikiMacroBase
 
-from totalfield.utils import TotalFieldBase, get_closed_states, \
+from total_field.utils import TotalFieldBase, get_closed_states, \
                                   execute_query
 
 

@@ -3,7 +3,7 @@
 import unittest
 from trac.test import EnvironmentStub, Mock
 
-from totalfield.utils import TotalFieldBase
+from total_field.utils import TotalFieldBase
 
 
 class TotalFieldBaseTestCase(unittest.TestCase):
