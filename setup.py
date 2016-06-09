@@ -8,7 +8,7 @@ from pkg_resources import parse_version
 
 
 name = 'TotalField'
-version = '0.0.1'
+version = '0.0.2'
 min_trac = '0.11.3'
 try:
     import trac
@@ -24,9 +24,10 @@ setup(
     author_email = 'coudert@free.fr',
     description = 'Trac Macro to sum a custom field on a query',
     version = version,
+    url='https://github.com/pierrejean-coudert/trac_totalfield_plugin',
+    download_url = 'https://github.com/peterldowns/mypackage/tarball/'+version,
     license='MIT',
     packages=['totalfield'],
-    package_data = { 'totalfield': [] },
     entry_points = {
         'trac.plugins': [
             'totalfield = totalfield'
