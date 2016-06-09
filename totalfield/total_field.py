@@ -1,10 +1,8 @@
 from trac.wiki.api import parse_args
 from trac.wiki.macros import WikiMacroBase
-from trac.config import Option
-from trac.core import Component
 from trac.ticket.query import Query
 from trac.util.text import unicode_urlencode
-
+from trac.wiki.formatter import system_message
 from datetime import datetime
 
 
@@ -15,31 +13,6 @@ try:
 except ImportError:
     def from_timestamp(ts):
         return datetime.fromtimestamp(ts, utc)
-
-
-
-def get_total_field():
-    return Option('totalfield', 'total_field', 'totalhours',
-        doc="""Defines what custom field should be used to calculate
-        total hours. Defaults to 'totalhours'""")
-
-
-class TotalFieldBase(Component):
-    """ Base class TotalField components that auto-disables if
-    total field is not properly configured. """
-
-    abstract = True
-    total_field = get_total_field()
-
-    def __init__(self, *args, **kwargs):
-        if not self.env.config.has_option('ticket-custom',
-                                          self.total_field):
-            # No total field configured. Disable plugin and log error.
-            self.log.error("TotalField (%s): "
-                           "Total field not configured. "
-                           "Component disabled.", self.__class__.__name__)
-            self.env.disable_component(self)
-
 
 
 def execute_query(env, req, query_args):
@@ -72,32 +45,36 @@ def execute_query(env, req, query_args):
     return tickets
 
 
-class TotalField(TotalFieldBase, WikiMacroBase):
+class TotalField(WikiMacroBase):
     """Calculates the sum of total hours for the queried tickets.
 
     The macro accepts a comma-separated list of query parameters for the ticket selection,
-    in the form "key=value" as specified in TracQuery#QueryLanguage.
+    in the form "key=value" as specified in TracQuery#QueryLanguage, and a field_name
 
     Example:
     {{{
-        [[TotalField(milestone=Sprint 1)]]
+        [[TotalField(milestone=Sprint 1, field_name)]]
     }}}
     """
 
     def expand_macro(self, formatter, name, content):
         req = formatter.req
-        _ignore, options = parse_args(content, strict=False)
+        args, options = parse_args(content, strict=False)
+        if len(args) != 1:
+            return system_message("TotalField macro error", "request and field_name are required.")
+
 
         # we have to add custom field to query so that field is added to
         # resulting ticket list
-        options[self.total_field + "!"] = None
+        field_name = args[0]
+        options[field_name + "!"] = None
 
         tickets = execute_query(self.env, req, options)
 
         sum = 0.0
         for t in tickets:
             try:
-                sum += float(t[self.total_field])
+                sum += float(t[field_name])
             except:
                 pass
 

@@ -40,7 +40,7 @@ class TotalFieldTestCase(unittest.TestCase):
         self._insert_ticket('10')
         self._insert_ticket('20')
         self._insert_ticket('30')
-        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1")
+        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1,my_field")
         self.assertEqual(result, '60')
 
     def test_real(self):
@@ -48,7 +48,7 @@ class TotalFieldTestCase(unittest.TestCase):
         self._insert_ticket('10')
         self._insert_ticket('20.1')
         self._insert_ticket('30')
-        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1")
+        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1,my_field")
         self.assertEqual(result, '60.1')
 
     def test_invalid(self):
@@ -57,20 +57,20 @@ class TotalFieldTestCase(unittest.TestCase):
         self._insert_ticket('20')
         self._insert_ticket('30')
         self._insert_ticket('xxx')
-        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1")
+        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1,my_field")
         self.assertEqual(result, '60')
 
     def test_to_many_tickets(self):
         totalField = TotalField(self.env)
         for _ in range(200):
             self._insert_ticket('1')
-        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1")
+        result = totalField.expand_macro(self.formatter, "", "milestone=milestone1,my_field")
         self.assertEqual(result, '200')
 
     def test_url_encode(self):
         totalField = TotalField(self.env)
         self._insert_ticket('10', fields={'summary': 'Test#One'})
-        result = totalField.expand_macro(self.formatter, "", "summary=Test#One")
+        result = totalField.expand_macro(self.formatter, "", "summary=Test#One,my_field")
         self.assertEquals(result, '10')
 
 

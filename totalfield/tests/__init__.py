@@ -2,13 +2,12 @@
 
 import unittest
 
-from totalfield.tests import total_field, utils
+from totalfield.tests import total_field
 
 
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(total_field.suite())
-    suite.addTest(utils.suite())
     return suite
 
 
