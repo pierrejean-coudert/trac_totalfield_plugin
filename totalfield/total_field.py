@@ -46,14 +46,14 @@ def execute_query(env, req, query_args):
 
 
 class TotalField(WikiMacroBase):
-    """Calculates the sum of total hours for the queried tickets.
+    """Calculates the sum of a field values for the queried tickets.
 
-    The macro accepts a comma-separated list of query parameters for the ticket selection,
-    in the form "key=value" as specified in TracQuery#QueryLanguage, and a field_name
+    The macro accepts a field_name and a comma-separated list of query parameters for the ticket selection,
+    in the form "key=value" as specified in TracQuery#QueryLanguage.
 
     Example:
     {{{
-        [[TotalField(milestone=Sprint 1, field_name)]]
+        [[TotalField(field_name, milestone=Sprint 1)]]
     }}}
     """
 
