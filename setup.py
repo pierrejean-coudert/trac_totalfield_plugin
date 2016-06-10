@@ -7,7 +7,7 @@ from setuptools import setup
 from pkg_resources import parse_version
 
 
-name = 'TotalField'
+name = 'TracMacroTotalField'
 version = '0.0.2'
 min_trac = '0.11.3'
 try:
